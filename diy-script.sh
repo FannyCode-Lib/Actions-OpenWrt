@@ -37,3 +37,8 @@ svn export https://github.com/haiibo/packages/trunk/luci-theme-netgear package/l
 git clone --depth=1 -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
 git clone --depth=1 https://github.com/pymumu/openwrt-smartdns package/smartdns
 
+# Modify default IP
+sed -i 's/192.168.1.1/192.168.2.1/g' package/base-files/files/bin/config_generate
+
+./scripts/feeds update -a
+./scripts/feeds install -a
