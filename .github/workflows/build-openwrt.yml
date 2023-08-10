@@ -142,7 +142,6 @@ jobs:
       run: |
         cd $OPENWRT_PATH/bin/targets/*/*
         rm -rf packages *.buildinfo *.manifest *kernel.bin *rootfs.img.gz
-        rename 's/^/mini-/' *
         echo "FIRMWARE_PATH=$PWD" >> $GITHUB_ENV
 
     - name: Upload Firmware To Artifact
