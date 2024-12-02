@@ -26,7 +26,7 @@ env:
 
 jobs:
   Build:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-20.04
 
     steps:
     - name: Checkout
@@ -62,13 +62,14 @@ jobs:
       env:
         DEBIAN_FRONTEND: noninteractive
       run: |
-        docker rmi $(docker images -q)
-        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /etc/mysql /etc/php /usr/local/lib/android
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
         sudo -E apt-get -qq update
-        sudo -E apt-get -y install rename libfuse-dev $(curl -fsSL is.gd/depends_ubuntu_2204)
+        sudo -E apt-get -qq install $(curl -fsSL git.io/depends-ubuntu-2004)
         sudo -E apt-get -qq autoremove --purge
         sudo -E apt-get -qq clean
         sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
     - name: Clone Source Code
       id: clone
       run: |
